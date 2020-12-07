@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.navigationtest.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_fragment11"
+            app:destination="@id/fragment11" />
+        <action
+            android:id="@+id/action_homeFragment_to_fragment21"
+            app:destination="@id/fragment21" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment11"
+        android:name="com.example.navigationtest.Fragment11"
+        android:label="Fragment11"
+        tools:layout="@layout/fragment_11">
+        <action
+            android:id="@+id/action_fragment11_to_fragment12"
+            app:destination="@id/fragment12" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment12"
+        android:name="com.example.navigationtest.Fragment12"
+        android:label="Fragment12"
+        tools:layout="@layout/fragment_12"/>
+    <fragment
+        android:id="@+id/fragment21"
+        android:name="com.example.navigationtest.Fragment21"
+        android:label="Fragment21"
+        tools:layout="@layout/fragment_21"/>
+</navigation>
