@@ -23,15 +23,35 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onCreate(savedInstanceState)
         setContentView(vBinding.root)
 
+        setToolbar()
         setNavComponent()
     }
 
+    private fun setToolbar(){
+        setSupportActionBar(vBinding.includedCoordinator.toolbar)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
     private fun setNavComponent(){
-        NavigationUI.setupActionBarWithNavController(this, navController, vBinding.drawerLayout)
+
+//        NavigationUI.setupActionBarWithNavController(this, navController, vBinding.drawerLayout)
         vBinding.navView.setNavigationItemSelectedListener(this)    //route to onNavigationItemSelected()
 
         navController.addOnDestinationChangedListener{ _, _, _ ->
             Log.d(TAG, "backstack size: ${navController.backStack.size}")
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId){
+            android.R.id.home -> {
+                if (vBinding.drawerLayout.isOpen) {
+                    vBinding.drawerLayout.close()
+                    true
+                }else false
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
