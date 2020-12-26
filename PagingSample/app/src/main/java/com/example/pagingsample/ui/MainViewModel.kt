@@ -22,4 +22,8 @@ class MainViewModel @Inject constructor(
             liveImagePagedListWrapper.value = LivePagedListBuilder(factory, config).build()
         }
     }
+
+    fun dispose(){
+        factory.dispose()
+    }
 }

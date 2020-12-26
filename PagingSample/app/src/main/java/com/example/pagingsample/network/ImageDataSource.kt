@@ -36,6 +36,7 @@ class ImageDataSource(
             .subscribeOn(Schedulers.io())
             .subscribeWith(object: ResourceSubscriber<PixabayResponse>(){
                 override fun onNext(t: PixabayResponse?) {
+                    Log.d(TAG, "loadInitial() - onNext()...")
                     t?.let {
                         callback.onResult(t.hits, null, FIRST_PAGE + 1)
                     }
@@ -54,14 +55,35 @@ class ImageDataSource(
 
     //when scrolling up - load previous page
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Image>) {
+
+        Log.d(TAG, "requestedLoadsie: ${params.requestedLoadSize}")
+        val disposable = pixabayAPI.getImages(query, Key.API_KEY, params.key, params.requestedLoadSize)  //TODO("requestedLoadSize?")
+                .subscribeOn(Schedulers.io())
+                .subscribeWith(object: ResourceSubscriber<PixabayResponse>(){
+                    override fun onNext(t: PixabayResponse?) {
+                        if (params.key< MAX_PAGE_NUM && t != null){
+                            callback.onResult(t.hits, params.key-1)
+                        }
+                    }
+
+                    override fun onError(t: Throwable?) {
+                        t?.printStackTrace()
+                    }
+
+                    override fun onComplete() {
+                    }
+                })
+        compositeDisposable.add(disposable)
     }
 
     //when scrolling down - load next page
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Image>) {
-        val disposable = pixabayAPI.getImages(query, Key.API_KEY, FIRST_PAGE, params.requestedLoadSize)  //TODO("requestedLoadSize?")
+        Log.d(TAG, "loadAfter()...")
+        val disposable = pixabayAPI.getImages(query, Key.API_KEY, params.key, params.requestedLoadSize)  //TODO("requestedLoadSize?")
             .subscribeOn(Schedulers.io())
             .subscribeWith(object: ResourceSubscriber<PixabayResponse>(){
                 override fun onNext(t: PixabayResponse?) {
+                    Log.d(TAG, "loadAfter() - onNext()...")
                     if (params.key< MAX_PAGE_NUM && t != null){
                         callback.onResult(t.hits, params.key+1)
                     }

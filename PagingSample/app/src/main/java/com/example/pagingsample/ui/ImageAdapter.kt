@@ -21,7 +21,7 @@ class ImageAdapter(
     }
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
-        holder.bind(currentList?.get(position))
+        holder.bind(getItem(position))
     }
 
 }

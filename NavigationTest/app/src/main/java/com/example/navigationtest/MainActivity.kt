@@ -4,8 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
-import androidx.navigation.NavController
-import androidx.navigation.NavDestination
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
@@ -76,9 +74,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun popUpNavigateTo(destId: Int){
-        val inclusive = destId == R.id.homeFragment
+        val isInclusive = destId == R.id.homeFragment
         NavOptions.Builder()
-            .setPopUpTo(R.id.homeFragment, inclusive)   //works only when dest is present in back stack
+            .setPopUpTo(R.id.homeFragment, isInclusive)   //works only when dest is present in back stack
             .build()
             .let{
                 navController.navigate(destId, null, it)

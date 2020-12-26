@@ -1,6 +1,7 @@
 package com.example.pagingsample.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,10 @@ import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
 class SearchFragment: DaggerFragment() {
+
+    companion object{
+        const val TAG = "SearchFragment"
+    }
 
     private var _vBinding: FragmentSearchBinding? = null
     private val vBinding
@@ -48,6 +53,8 @@ class SearchFragment: DaggerFragment() {
     private fun setSearchView(){
         vBinding.sv.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
+                Log.d(TAG, "onQueryTextSubmit()...")
+                mViewModel.dispose()
                 mViewModel.query(query)
                 return true
             }
@@ -58,6 +65,7 @@ class SearchFragment: DaggerFragment() {
 
     private fun setObserver(){
         mViewModel.liveImagePagedListWrapper.observe(viewLifecycleOwner) {
+            Log.d(TAG, "new LiveData<PagedList<Image>> created: $it")
             it.observe(viewLifecycleOwner) { pagedList ->
                 iAdapter.submitList(pagedList)
             }
