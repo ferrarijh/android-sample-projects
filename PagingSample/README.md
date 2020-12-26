@@ -1,9 +1,9 @@
 # Android Paging Library Sample
-Sample app demonstrating paging library (feat. MVVM, RxJava, Dagger)
+Sample app demonstrating paging library (feat. MVVM, RxJava, Dagger, Glide)
 
 ## Demo
 <div>
-    <img src="">
+    <img src="https://github.com/ferrarijh/android-sample-projects/blob/master/PagingSample/demo/demo_paging.gif">
 </div>
 
 ### Solved Issues
