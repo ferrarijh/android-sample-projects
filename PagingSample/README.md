@@ -1,5 +1,10 @@
 # Android Paging Library Sample
-Sample app demonstrating paging library.
+Sample app demonstrating paging library (feat. MVVM, RxJava, Dagger)
+
+## Demo
+<div>
+    <img src="">
+</div>
 
 ### Solved Issues
 * `loadAfter()` from `ImageDataSource` not called
